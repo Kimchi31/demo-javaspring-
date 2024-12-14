@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Список пользователей</title>
+</head>
+<body>
+<h1>Список пользователей</h1>
+<table border="1">
+  <tr>
+    <th>ID</th>
+    <th>Имя</th>
+    <th>Email</th>
+  </tr>
+  <tr th:each="user : ${userPage.content}">
+    <td th:text="${user.id}">ID</td>
+    <td th:text="${user.name}">Имя</td>
+    <td th:text="${user.email}">Email</td>
+  </tr>
+</table>
+
+<div>
+  Страница <span th:text="${userPage.number + 1}"></span> из <span th:text="${userPage.totalPages}"></span>
+</div>
+
+<div>
+  <a th:href="@{/users(page=${userPage.number - 1}, size=${userPage.size})}"
+     th:if="${userPage.hasPrevious()}">Предыдущая страница</a>
+
+  <a th:href="@{/users(page=${userPage.number + 1}, size=${userPage.size})}"
+     th:if="${userPage.hasNext()}">Следующая страница</a>
+</div>
+</body>
+</html>
